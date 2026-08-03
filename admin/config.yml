@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Aslindal/liqinglin-site
   branch: main
+  app_id: Ov23liEn0OR3lNUXUMY0
 
 locale: "zh_Hans"
 media_folder: "media"
