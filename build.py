@@ -52,7 +52,7 @@ PAGE_TMPL = '''<!DOCTYPE html>
 <body>
 <div class="wrap">
   <div class="page-top">
-    <a class="brand" href="../index.html">李青林 · 在案卷之外写作</a>
+    <a class="brand" href="../index.html">李青林 · 在案卷之外的体会</a>
     <a class="back" href="../index.html#writing">← 返回</a>
   </div>
   <p class="essay-date">{date}</p>
@@ -60,7 +60,7 @@ PAGE_TMPL = '''<!DOCTYPE html>
   <div class="essay-body">
 {body}
   </div>
-  <p class="essay-end">李青林 · 在案卷之外写作</p>
+  <p class="essay-end">李青林 · 在案卷之外的体会</p>
 </div>
 </body>
 </html>'''
