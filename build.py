@@ -155,6 +155,7 @@ def parse_md(path):
 
 def main():
     os.makedirs(OUT, exist_ok=True)
+    os.makedirs(SRC, exist_ok=True)
     items, valid = [], set()
     for fn in sorted(os.listdir(SRC)):
         if not fn.endswith('.md'):
