@@ -277,6 +277,24 @@ p{margin:0}
 }
 .life-list .sep{color:var(--gold)}
 
+/* ---------- writing ---------- */
+.writing .essay-list{max-width:46rem;margin:0 auto}
+.essay-item{
+  display:flex;flex-direction:column;gap:.3rem;
+  padding:1.5rem 0;border-bottom:1px solid var(--line-soft);
+  text-decoration:none;color:var(--ink);
+}
+.essay-item:first-child{border-top:1px solid var(--line-soft)}
+.essay-meta{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.essay-title{font-family:var(--serif-display);font-size:1.3rem;font-weight:600;transition:color .2s ease}
+.essay-excerpt{color:var(--ink-2);font-size:.95rem;line-height:1.7}
+.essay-item:hover .essay-title{color:var(--accent)}
+.essay-empty{
+  text-align:center;color:var(--ink-2);
+  padding:2.5rem 0 1.5rem;line-height:1.9;
+}
+.essay-empty .fleuron{display:block;color:var(--gold);font-size:1.1rem;margin-bottom:1.1rem}
+
 /* ---------- contact ---------- */
 .contact{
   background:var(--dark);color:var(--dark-text);
@@ -367,6 +385,7 @@ p{margin:0}
       <a href="#education"><span class="zh">教育</span><span class="en">Education</span></a>
       <a href="#skills"><span class="zh">技能</span><span class="en">Skills</span></a>
       <a href="#life"><span class="zh">生活</span><span class="en">Life</span></a>
+      <a href="#writing"><span class="zh">写作</span><span class="en">Writing</span></a>
       <a href="#contact"><span class="zh">联系</span><span class="en">Contact</span></a>
       <button class="lang-toggle" id="langToggle" aria-label="Switch to English"><span class="zh">EN</span><span class="en">中文</span></button>
     </nav>
@@ -571,6 +590,24 @@ p{margin:0}
       <span><span class="zh">篮球</span><span class="en">Basketball</span></span><span class="sep" aria-hidden="true">❦</span>
       <span><span class="zh">骑行</span><span class="en">Cycling</span></span><span class="sep" aria-hidden="true">❦</span>
       <span><span class="zh">哲学与法律理论</span><span class="en">Philosophy &amp; Legal Theory</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WRITING ============ -->
+<section class="section writing" id="writing">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-left:auto;margin-right:auto;text-align:center">
+      <p class="kicker"><span class="zh">写作</span><span class="en">Writing</span></p>
+      <h2><span class="zh">在案卷之外写作</span><span class="en">Writing Beyond the Case Files</span></h2>
+      <p class="lead"><span class="zh">文章和案件一样，都是把混沌变成秩序。</span><span class="en">Essays, like cases, turn chaos into order.</span></p>
+    </div>
+    <div class="essay-list reveal">
+      <p class="essay-empty">
+        <span class="fleuron" aria-hidden="true">❦</span>
+        <span class="zh">第一篇文章尚未到来——它正在某个黄昏里成形。</span>
+        <span class="en">The first essay has not arrived yet — it is taking shape at some dusk.</span>
+      </p>
     </div>
   </div>
 </section>
