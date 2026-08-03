@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  /* 邀请/重置链接带 #token=... 时自动转到后台页（Netlify Identity 邮件链接落在首页，需要转送） */
+  if(location.hash.indexOf('token=') !== -1 && location.pathname.replace(/\/$/,'') !== '/admin'){
+    location.replace('admin/' + location.hash);
+  }
+</script>
 <title>李青林 · 风控合规与反舞弊调查</title>
 <meta name="description" content="李青林——风控合规与反舞弊调查专业人士。现于阿里灵犀互娱从事廉正合规工作，曾任职美团、中伦律师事务所与京东。北京大学国际法学院 JD/JM 双学位。">
 <meta property="og:title" content="李青林 · 风控合规与反舞弊调查">
