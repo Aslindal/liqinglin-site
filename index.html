@@ -700,7 +700,7 @@ p{margin:0}
   /* essay list (filled from writing/list.json; static fallback stays if unavailable) */
   var essayList=document.getElementById('essayList');
   if(essayList){
-    fetch('writing/list.json').then(function(r){return r.json();}).then(function(data){
+    fetch('essays/list.json').then(function(r){return r.json();}).then(function(data){
       var arr=(data&&data.essays)||[];
       if(!arr.length){return;}
       var html='';
