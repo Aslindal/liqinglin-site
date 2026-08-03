@@ -602,7 +602,7 @@ p{margin:0}
       <h2><span class="zh">在案卷之外写作</span><span class="en">Writing Beyond the Case Files</span></h2>
       <p class="lead"><span class="zh">文章和案件一样，都是把混沌变成秩序。</span><span class="en">Essays, like cases, turn chaos into order.</span></p>
     </div>
-    <div class="essay-list reveal">
+    <div class="essay-list reveal" id="essayList">
       <p class="essay-empty">
         <span class="fleuron" aria-hidden="true">❦</span>
         <span class="zh">第一篇文章尚未到来——它正在某个黄昏里成形。</span>
@@ -696,6 +696,24 @@ p{margin:0}
   var y=new Date().getFullYear();
   var a=document.getElementById('year');if(a)a.textContent=y;
   var b=document.getElementById('yearEn');if(b)b.textContent=y;
+
+  /* essay list (filled from writing/list.json; static fallback stays if unavailable) */
+  var essayList=document.getElementById('essayList');
+  if(essayList){
+    fetch('writing/list.json').then(function(r){return r.json();}).then(function(data){
+      var arr=(data&&data.essays)||[];
+      if(!arr.length){return;}
+      var html='';
+      arr.forEach(function(e){
+        html+='<a class="essay-item" href="'+e.url+'">'
+          +'<span class="essay-meta">'+e.date+'</span>'
+          +'<span class="essay-title">'+e.title+'</span>'
+          +'<span class="essay-excerpt">'+e.excerpt+'</span>'
+          +'</a>';
+      });
+      essayList.innerHTML=html;
+    }).catch(function(){/* keep fallback */});
+  }
 })();
 </script>
 </body>
