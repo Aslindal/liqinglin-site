@@ -1,12 +1,116 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>文章后台 · 李青林</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>发布文章 · 李青林</title>
+<style>
+:root{
+  --paper:#fcfaec;--ink:#211212;--ink-2:#584a3c;--accent:#a96c1d;
+  --line:rgba(33,18,18,.20);--line-soft:rgba(33,18,18,.10);
+  --serif:'Libre Caslon Text','Noto Serif SC','Songti SC','STSong','SimSun',Georgia,'Times New Roman',serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.0625rem;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:44rem;margin:0 auto;padding:3rem 1.5rem 4rem}
+.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line-soft);padding-bottom:1.2rem;margin-bottom:2.2rem}
+.brand{color:var(--ink);text-decoration:none;font-weight:600;letter-spacing:.08em}
+.back{font-size:.9rem;text-decoration:none}
+h1{margin:0 0 .4rem;font-size:1.7rem;line-height:1.35}
+.sub{color:var(--ink-2);font-size:.95rem;margin:0 0 2.2rem}
+label{display:block;font-size:.85rem;letter-spacing:.12em;color:var(--ink-2);margin:1.4rem 0 .4rem}
+input[type=text],input[type=password],input[type=date],textarea{
+  width:100%;font:inherit;color:var(--ink);
+  background:#fffdf6;border:1px solid var(--line);
+  padding:.6rem .8rem;border-radius:2px;
+}
+textarea{min-height:16rem;line-height:1.8;resize:vertical}
+.hint{font-size:.85rem;color:var(--ink-2);margin-top:.35rem}
+.btn{
+  display:inline-block;margin-top:2rem;border:none;cursor:pointer;
+  background:var(--accent);color:#fffdf6;
+  font:inherit;letter-spacing:.2em;padding:.7rem 2.6rem;border-radius:2px;
+}
+.btn:disabled{opacity:.5;cursor:wait}
+#result{margin-top:1.4rem;font-size:.98rem;min-height:1.6em}
+#result.ok{color:var(--accent)}
+#result.err{color:#8b1a1a}
+</style>
 </head>
 <body>
-  <!-- Decap CMS 管理界面：登录后在这里写文章、点发布 -->
-  <script src="./decap-cms.js"></script>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="../index.html">李青林 · 发布文章</a>
+    <a class="back" href="../index.html#writing">← 返回首页</a>
+  </div>
+
+  <h1>写一篇文章</h1>
+  <p class="sub">填完点「发布」，1-2 分钟后网站自动更新。修改文章：用同一个文件名再发一次即可覆盖。</p>
+
+  <form id="pubForm">
+    <label for="title">标题 *</label>
+    <input type="text" id="title" required>
+
+    <label for="slug">文件名（英文，如 law-and-chance，只能字母数字和连字符）*</label>
+    <input type="text" id="slug" pattern="[A-Za-z0-9\-_]+" required>
+
+    <label for="date">日期（默认今天）</label>
+    <input type="date" id="date">
+
+    <label for="excerpt">摘要（一句话，30 字内，首页卡片显示）</label>
+    <input type="text" id="excerpt">
+
+    <label for="content">正文 *</label>
+    <textarea id="content" required></textarea>
+    <p class="hint">格式很简单：空行分段；## 加空格 = 小标题；- 加空格 = 列表项；&gt; 加空格 = 引用。</p>
+
+    <label for="password">后台密码 *</label>
+    <input type="password" id="password" required>
+
+    <button type="submit" class="btn" id="btn">发 布</button>
+    <p id="result" role="status"></p>
+  </form>
+</div>
+
+<script>
+var form = document.getElementById('pubForm');
+var btn = document.getElementById('btn');
+var res = document.getElementById('result');
+document.getElementById('date').value = new Date().toISOString().slice(0, 10);
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  btn.disabled = true;
+  res.className = '';
+  res.textContent = '正在发布……';
+  fetch('/.netlify/functions/publish', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      password: document.getElementById('password').value,
+      title: document.getElementById('title').value,
+      slug: document.getElementById('slug').value,
+      date: document.getElementById('date').value,
+      excerpt: document.getElementById('excerpt').value,
+      content: document.getElementById('content').value
+    })
+  }).then(function (r) { return r.json(); }).then(function (d) {
+    btn.disabled = false;
+    if (d.ok) {
+      res.className = 'ok';
+      res.textContent = d.message + ' 现在可以打开首页查看。';
+      form.reset();
+      document.getElementById('date').value = new Date().toISOString().slice(0, 10);
+    } else {
+      res.className = 'err';
+      res.textContent = d.error || '发布失败，请重试。';
+    }
+  }).catch(function () {
+    btn.disabled = false;
+    res.className = 'err';
+    res.textContent = '网络出错，请重试。';
+  });
+});
+</script>
 </body>
 </html>
